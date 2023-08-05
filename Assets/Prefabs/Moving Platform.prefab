@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8868227714820467550}
   - component: {fileID: 424106594295664040}
   - component: {fileID: 4228690371394547820}
+  - component: {fileID: 8654739759278852608}
   - component: {fileID: 7832105544533750732}
   m_Layer: 0
   m_Name: Moving Platform
@@ -106,6 +107,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &8654739759278852608
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4195883254438969269}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.34, z: 0}
 --- !u!114 &7832105544533750732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,4 +140,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c224ab0c8bd5a4dfb89acda504453575, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _xDistanceToTravel: 1
+  _xOrY: 1
+  _speed: 2
+  _DistanceToTravel: 5

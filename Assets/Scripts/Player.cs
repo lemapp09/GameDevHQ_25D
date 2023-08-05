@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,6 +14,7 @@ public class Player : MonoBehaviour
     private float _horizontal;
     private bool _canDoubleJump;
     private bool _isGrounded;
+    private Vector3 playerMovement;
     [SerializeField]
     private float _jumpHeight = 3.0f;
 
@@ -47,7 +49,7 @@ public class Player : MonoBehaviour
         Vector3 _effectGravity = Vector3.zero;
         _isGrounded = _controller.isGrounded;
         _horizontal = _playerInputActions.Player.Movement.ReadValue<Vector2>().x;
-        Vector3 playerMovement = _playerSpeed * Time.deltaTime * _horizontal * Vector3.right;
+        playerMovement = _playerSpeed * Time.deltaTime * _horizontal * Vector3.right;
         if (_isGrounded) {
             if (Keyboard.current.spaceKey.wasPressedThisFrame) {
                 _yVelocity = _jumpHeight;

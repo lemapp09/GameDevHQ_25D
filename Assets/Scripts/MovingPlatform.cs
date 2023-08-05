@@ -1,36 +1,61 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
-{ 
+{
+    [SerializeField] private bool _xOrY;
+    [SerializeField] private float _speed = 2f;
     private Vector3 _startingPosition;
     private Vector3 _endingPosition;
-    [SerializeField] private float _xDistanceToTravel = 1f;
-    private bool _movingRight = true;
+    [SerializeField] private float _DistanceToTravel = 5f;
+    private bool _movingForward = true;
+    private Vector3 _nextPosition;
 
-    private void Start()
-    {
+    private void Start() {
         _startingPosition = transform.position;
-        _endingPosition = transform.position + new Vector3(_xDistanceToTravel, 0, 0);
+        if (_xOrY) {
+            _endingPosition = transform.position + new Vector3(_DistanceToTravel, 0, 0);
+        } else {
+            _endingPosition = transform.position + new Vector3(0,_DistanceToTravel, 0 );
+        }
+        _nextPosition = _endingPosition;
     }
-    void Update()
+
+    void FixedUpdate() {
+        MovePlatform();
+    }
+
+    private void MovePlatform()
     {
-        if (_movingRight) {
-            transform.position = Vector3.MoveTowards(transform.position, _endingPosition, Time.deltaTime);
-            // calculate distance between two position
-            if(Vector3.Distance(_endingPosition, transform.position) < 0.1f) {
-                _movingRight = false;
+        float step = _speed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, _nextPosition, step);
+
+        if (Vector3.Distance(transform.position, _nextPosition) < 0.01f) {
+            _movingForward = !_movingForward;
+            if (_movingForward) {
+                _nextPosition = _endingPosition;
+            }  else   {
+                _nextPosition = _startingPosition;
             }
         }
-        else
-        {
-            transform.position = Vector3.MoveTowards(transform.position, _startingPosition, Time.deltaTime);
-            if(Vector3.Distance(_startingPosition, transform.position) < 0.1f) {
-                _movingRight = true;
-            }
-            
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        Debug.Log("Something triggered the moving platform");
+        if (other.CompareTag("Player")) {
+            Debug.Log("Moving Platform has detected the Player");
+            other.transform.parent = null;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player")) {
+            Debug.Log("Player has left the platform");
+            other.transform.parent = other.transform;
         }
     }
 }
