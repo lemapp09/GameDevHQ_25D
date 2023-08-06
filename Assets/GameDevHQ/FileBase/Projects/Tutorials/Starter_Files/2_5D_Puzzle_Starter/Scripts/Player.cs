@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 namespace GameDevHQ_25D
@@ -10,16 +12,17 @@ namespace GameDevHQ_25D
         [SerializeField] private float _gravity = 1.0f;
         [SerializeField] private float _jumpHeight = 15.0f;
         private float _yVelocity;
-        private bool _canDoubleJump = false;
+        private bool _canDoubleJump;
         [SerializeField] private int _coins;
-
-        public int Coins
-        {
-            get { return _coins; }
-        }
+        public int Coins { get { return _coins; } }
 
         private UIManager _uiManager;
         [SerializeField] private int _lives = 3;
+        private Vector3 _direction, _velocity;
+        private bool _canWallJump;
+        private Vector3 _wallSurfaceNormal;
+        [SerializeField]
+        private float _boxPushPower = 1.0f;
 
         void Start()
         {
@@ -36,10 +39,11 @@ namespace GameDevHQ_25D
         void Update()
         {
             float horizontalInput = Input.GetAxis("Horizontal");
-            Vector3 direction = new Vector3(horizontalInput, 0, 0);
-            Vector3 velocity = direction * _speed;
-            if (_controller.isGrounded == true)
+            if (_controller.isGrounded )
             {
+                _canWallJump = false;
+                _direction = new Vector3(horizontalInput, 0, 0);
+                _velocity = _direction * _speed;
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     _yVelocity = _jumpHeight;
@@ -47,8 +51,8 @@ namespace GameDevHQ_25D
                 }
             }
             else
-            {
-                if (Input.GetKeyDown(KeyCode.Space))
+            { 
+                if (Keyboard.current.spaceKey.wasPressedThisFrame && !_canWallJump)
                 {
                     if (_canDoubleJump == true)
                     {
@@ -57,13 +61,40 @@ namespace GameDevHQ_25D
                     }
                 }
 
+                if (Keyboard.current.spaceKey.wasPressedThisFrame && _canWallJump)
+                {
+                    _yVelocity = _jumpHeight;
+                    _velocity = _wallSurfaceNormal * _speed;
+                }
+
                 _yVelocity -= _gravity;
             }
 
-            velocity.y = _yVelocity;
+            _velocity.y = _yVelocity;
             if (_controller.enabled == true)
             {
-                _controller.Move(velocity * Time.deltaTime);
+                _controller.Move(_velocity * Time.deltaTime);
+            }
+        }
+
+        private void OnControllerColliderHit(ControllerColliderHit hit)
+        {
+            if (hit.transform.CompareTag("Wall") && !_controller.isGrounded)
+            {
+                _wallSurfaceNormal = hit.normal;
+                _canWallJump = true;
+            }
+            if(hit.transform.CompareTag("Moveable Box")) {
+                // confirm RigidBody
+                Rigidbody moveableBox = hit.collider.attachedRigidbody;
+                if (moveableBox == null || moveableBox.isKinematic){
+                    return;
+                }
+                // push power - declare global variable
+                // calculate move direction
+                Vector3 pushDirection = new Vector3(hit.moveDirection.x, 0, 0);
+                // push ( using movingBox velocity)
+                moveableBox.velocity = pushDirection * _boxPushPower;
             }
         }
 

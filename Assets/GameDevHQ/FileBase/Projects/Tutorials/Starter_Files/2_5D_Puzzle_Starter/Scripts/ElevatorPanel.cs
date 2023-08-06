@@ -19,12 +19,13 @@ namespace GameDevHQ_25D
                 _playerIsInTheBox = true;
                 _coins = other.GetComponent<Player>().Coins;
             }
+            if (other.CompareTag("Elevator")) {
+                _callbutton.material.color = Color.red;
+            }
         }
 
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.CompareTag("Player"))
-            {
+        private void OnTriggerExit(Collider other) {
+            if (other.CompareTag("Player")) {
                 _playerIsInTheBox = false;
                 _coins = 0;
             }
