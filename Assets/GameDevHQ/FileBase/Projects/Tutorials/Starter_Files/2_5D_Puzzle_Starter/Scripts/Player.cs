@@ -1,12 +1,13 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 namespace GameDevHQ_25D
 {
     public class Player : MonoBehaviour
     {
+        private PlayerInputActions _playerInputActions;
         private CharacterController _controller;
         [SerializeField] private float _speed = 5.0f;
         [SerializeField] private float _gravity = 1.0f;
@@ -26,6 +27,8 @@ namespace GameDevHQ_25D
 
         void Start()
         {
+            _playerInputActions = new  PlayerInputActions();
+            _playerInputActions.Player.Enable();
             _controller = GetComponent<CharacterController>();
             _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
             if (_uiManager == null)
@@ -38,13 +41,13 @@ namespace GameDevHQ_25D
 
         void Update()
         {
-            float horizontalInput = Input.GetAxis("Horizontal");
+            float horizontalInput = _playerInputActions.Player.Movement.ReadValue<float>();
             if (_controller.isGrounded )
             {
                 _canWallJump = false;
                 _direction = new Vector3(horizontalInput, 0, 0);
                 _velocity = _direction * _speed;
-                if (Input.GetKeyDown(KeyCode.Space))
+                if ( Keyboard.current.spaceKey.wasPressedThisFrame)
                 {
                     _yVelocity = _jumpHeight;
                     _canDoubleJump = true;
