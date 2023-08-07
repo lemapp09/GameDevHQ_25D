@@ -7,6 +7,7 @@ TagManager:
   - Elevator
   - Wall
   - Moveable Box
+  - Ledge_Checker
   layers:
   - Default
   - TransparentFX
