@@ -46,6 +46,7 @@ namespace GameDevHQ_25dCert
             _playerInputActions = new PlayerInputActions();
             _playerInputActions.Player.Enable();
             _playerInputActions.Player.Climb.performed += ctx => ClimbUp();
+            _playerInputActions.Player.Roll.performed += ctx => Roll();
             _gravity = _gravityMax;
         }
 
@@ -162,8 +163,11 @@ namespace GameDevHQ_25dCert
             SceneManager.LoadScene(0);
         }
 
-        public void LedgeGrab(LedgeGrab currentLedge)
-        {
+        public void Roll() {
+            _playerAnim.Roll();
+        }
+
+        public void LedgeGrab(LedgeGrab currentLedge) {
             _playerAnim.LedgeGrab();
             _ledgeIsGrabbed = true;
             _currentLedge = currentLedge;

@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro.EditorUtilities;
 using UnityEngine;
 
 namespace GameDevHQ_25dCert
@@ -7,8 +8,10 @@ namespace GameDevHQ_25dCert
     [RequireComponent(typeof(Animator))]
     public class PlayerAnim : MonoBehaviour {
         [SerializeField] private Animator _anim;
-        private bool _notSeen , _isJumping;
-        private int _speedAnimId, _notseenAnimId, _jumpAnimId, _ledgeGrabAnimId, _deathAnimId, _climbAnimId;
+        private bool _notSeen, _isJumping;
+        [SerializeField] private bool _is_Stumbling;
+        private int _speedAnimId, _notseenAnimId, _jumpAnimId, _ledgeGrabAnimId, _deathAnimId, _climbAnimId, _rollAnimId,
+            _stumbleAnimId;
 
         protected virtual void Awake() {
             if (_speedAnimId == 0) {
@@ -23,6 +26,10 @@ namespace GameDevHQ_25dCert
                 _deathAnimId = Animator.StringToHash("Death"); }
             if (_climbAnimId == 0) {
                 _climbAnimId = Animator.StringToHash("Climb"); }
+            if (_rollAnimId == 0) {
+                _rollAnimId = Animator.StringToHash("Roll"); }
+            if (_stumbleAnimId == 0) {
+                _stumbleAnimId = Animator.StringToHash("Stumble"); }
         }
 
         private void Start() {
@@ -32,8 +39,9 @@ namespace GameDevHQ_25dCert
             if(_anim == null)
                     Debug.LogError("Animator is null");
             //     public static readonly int MyBool = Animator.StringToHash("MyBool");
+            StartCoroutine(Stumbling());
         }
-
+        
         public void SetSpeed(float speed) {
             _anim.SetFloat(_speedAnimId, speed);
         }
@@ -90,6 +98,31 @@ namespace GameDevHQ_25dCert
         }
         public void ClimbEnd() {
             _anim.SetBool(_ledgeGrabAnimId, false);
+        }
+
+        public void Roll() {
+            _anim.SetBool(_rollAnimId, true);
+            AudioManager.Instance.PlayManMoan();
+            StartCoroutine(RollDelay());
+        }
+
+        private IEnumerator RollDelay() {
+            yield return new WaitForSeconds(2.25f);
+            _anim.SetBool(_rollAnimId, false);
+        }
+
+        private IEnumerator Stumbling() {
+            while (_is_Stumbling) {
+                if (!_anim.GetBool(_jumpAnimId) && !_anim.GetBool(_ledgeGrabAnimId) &&
+                    !_anim.GetBool(_climbAnimId) && !_anim.GetBool(_rollAnimId) && !_anim.GetBool(_stumbleAnimId))
+                {
+                    Debug.Log("Stumbling");
+                    _anim.SetBool(_stumbleAnimId, true);
+                    yield return new WaitForSeconds(1.0f);
+                    _anim.SetBool(_stumbleAnimId, false);
+                    yield return new WaitForSeconds(Random.Range(9.0f, 30.0f));
+                }
+            }
         }
     }
 }

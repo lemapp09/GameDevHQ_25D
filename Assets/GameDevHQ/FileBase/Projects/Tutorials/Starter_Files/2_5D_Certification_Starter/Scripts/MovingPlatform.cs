@@ -15,15 +15,11 @@ namespace GameDevHQ_25dCert
         private void Start()
         {
             _startingPosition = transform.position;
-            if (_xOrY)
-            {
+            if (_xOrY) {
                 _endingPosition = transform.position + new Vector3(_DistanceToTravel, 0, 0);
-            }
-            else
-            {
+            }  else {
                 _endingPosition = transform.position + new Vector3(0, _DistanceToTravel, 0);
             }
-
             _nextPosition = _endingPosition;
         }
 

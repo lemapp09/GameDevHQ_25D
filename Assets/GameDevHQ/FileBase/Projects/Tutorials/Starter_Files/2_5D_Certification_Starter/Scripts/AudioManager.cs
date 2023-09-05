@@ -10,15 +10,25 @@ namespace GameDevHQ_25dCert
         [SerializeField] private AudioSource[] _audioSources;
         [SerializeField] private AudioMixer _mixer;
 
-        private void Start()
-        {
+        private void Start() {
             _audioSources[0].clip = _soundClips[0];
             _audioSources[0].Play();
         }
 
-        public void PlayManGrunting()
-        {
+        public void PlayManGrunting() {
             _audioSources[1].Play();
         }
+
+        public void PlayElevator() {
+            _audioSources[2].Play();
+        }  
+
+        public void StopElevator() {
+            _audioSources[2].Stop();
+        }    
+
+        public void PlayManMoan() {
+            _audioSources[3].Play();
+        }       
     }
 }
