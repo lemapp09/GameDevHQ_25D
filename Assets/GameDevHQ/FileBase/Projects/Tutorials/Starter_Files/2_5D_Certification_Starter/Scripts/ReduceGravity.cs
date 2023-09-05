@@ -1,12 +1,14 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace GameDevHQ_25dCert
 {
     public class ReduceGravity : MonoBehaviour {
-        [SerializeField] private Player _player;
+    private Player _player;
 
         private void OnTriggerEnter(Collider other) {
             if (other.CompareTag("Player")) {
+                _player = other.GetComponent<Player>();
                 Vector3 animVelocity;
                 Vector3 CCVelocity;
                 Animator anim = other.GetComponent<Animator>();
@@ -21,7 +23,8 @@ namespace GameDevHQ_25dCert
 
                 if (dotProduct > 0) {
                     if (animVelocity.z > 0 || CCVelocity.z > 0) {
-                        _player.ReduceGravity(true);
+                        if(_player != null)
+                            _player.ReduceGravity(true);
                     }
                 }
             }
@@ -29,7 +32,8 @@ namespace GameDevHQ_25dCert
 
         private void OnTriggerExit(Collider other) {
             if (other.CompareTag("Player")) {
-                _player.ReduceGravity(false);
+                if(_player != null)
+                    _player.ReduceGravity(false);
             }
         }
     }

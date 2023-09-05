@@ -1,9 +1,7 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 namespace GameDevHQ_25dCert
 {
@@ -23,7 +21,7 @@ namespace GameDevHQ_25dCert
         private CharacterController _controller;
         [SerializeField] private GameObject _playerBody;
 
-        [SerializeField] private float _horizontal, _yVelocity = 0f, _gravity,  speed = 500f;
+        [SerializeField] private float _horizontal, _yVelocity = 0f, _gravity;
         private int _coins = 0;
         private bool _isDead, _canDoubleJump, _ledgeIsGrabbed;
         private Vector3 _playerMovement;
@@ -198,7 +196,7 @@ namespace GameDevHQ_25dCert
             _gravity = 2f;
             _playerAnim.LedgeGrab();
             float timeInCycle = 0f;
-            float timeToJumpAgain = 0.9f;
+            // float timeToJumpAgain = 0.9f;
             Vector3 startingPosition = transform.position;
             float startingDistance = Mathf.Abs( transform.position.z  - _ledgeGrabPoint.position.z);
             float distanceY = _ledgeGrabPoint.position.y - startingPosition.y;

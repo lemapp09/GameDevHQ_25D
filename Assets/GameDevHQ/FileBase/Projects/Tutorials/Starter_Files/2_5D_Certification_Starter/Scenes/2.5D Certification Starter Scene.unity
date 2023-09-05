@@ -1628,7 +1628,7 @@ Transform:
   m_GameObject: {fileID: 435023631}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.7, y: 69, z: 103.7}
+  m_LocalPosition: {x: 0.7, y: 69, z: 92.91}
   m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -2808,7 +2808,6 @@ MonoBehaviour:
   _horizontal: 0
   _yVelocity: 0
   _gravity: 0
-  speed: 500
   _jumpHeight: 4
   _gravityMax: 9.81
   _playerSpeed: 5
@@ -4120,8 +4119,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 975054954}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.097258165, y: -0.7166315, z: 0.10203857, w: 0.68305814}
-  m_LocalPosition: {x: 10.7, y: 71.91, z: 104.18}
+  m_LocalRotation: {x: 0.097258165, y: -0.71663153, z: 0.10203857, w: 0.6830581}
+  m_LocalPosition: {x: 10.7, y: 71.91, z: 93.39001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4310,7 +4309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _soundClips:
-  - {fileID: 8300000, guid: 9ae8cbff996ee4edd8f6e5ea76b3624d, type: 3}
+  - {fileID: 8300000, guid: 3dc8b1fbdbcbc441d878dbdb0d310dc0, type: 3}
   - {fileID: 8300000, guid: a352b47d95d6c4f99801e6bb1f25e950, type: 3}
   _audioSources:
   - {fileID: 1234665357}
@@ -4635,7 +4634,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 129163178968297868, guid: 91ef8d4a95b7e4994879efcc3eee9155,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 9ae8cbff996ee4edd8f6e5ea76b3624d, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 3dc8b1fbdbcbc441d878dbdb0d310dc0, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -6236,8 +6235,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2120877326}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.097258165, y: -0.7166315, z: 0.10203857, w: 0.68305814}
-  m_LocalPosition: {x: 10.7, y: 71.91, z: 104.18}
+  m_LocalRotation: {x: 0.097258165, y: -0.71663153, z: 0.10203857, w: 0.6830581}
+  m_LocalPosition: {x: 10.7, y: 71.91, z: 93.39001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21840,16 +21839,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 671245965705282952, guid: 17ba94469cd494a219dc6e669396a0e8,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.03
-      objectReference: {fileID: 0}
-    - target: {fileID: 671245965705282952, guid: 17ba94469cd494a219dc6e669396a0e8,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.85
       objectReference: {fileID: 0}
     - target: {fileID: 8366804862908422785, guid: 17ba94469cd494a219dc6e669396a0e8,
         type: 3}
