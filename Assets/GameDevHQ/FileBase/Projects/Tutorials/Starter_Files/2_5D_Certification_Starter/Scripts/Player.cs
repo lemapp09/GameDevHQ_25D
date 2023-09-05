@@ -144,13 +144,13 @@ namespace GameDevHQ_25dCert
         public void CollectCoin()
         {
             _coins++;
-            UIManager_old.Instance.DisplayCoinTotal(_coins);
+            UIManager.Instance.DisplayCoinTotal(_coins);
         }
 
         public void Damage() {
             Debug.Log("Damage Reached");
             _lives--;
-            UIManager_old.Instance.DisplayLivesTotal(_lives);
+            UIManager.Instance.DisplayLivesTotal(_lives);
             if (_lives < 1) {
                 StartCoroutine(EndGameDelay());
             }
@@ -158,7 +158,7 @@ namespace GameDevHQ_25dCert
 
         public IEnumerator EndGameDelay() {
             _isDead = true;
-            UIManager_old.Instance.DisplayGameOver();
+            UIManager.Instance.DisplayGameOver();
             yield return new WaitForSeconds(5f);
             SceneManager.LoadScene(0);
         }
